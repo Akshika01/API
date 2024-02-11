@@ -7,12 +7,12 @@ import pojo.AddPlaceRequest;
 import pojo.Location;
 
 public class TestDataBuild {
-public static AddPlaceRequest addPlacePayload(){
+public static AddPlaceRequest addPlacePayload(String name, String lang, String addr){
 	AddPlaceRequest apr=new AddPlaceRequest();
 	apr.setAccuracy(50);
-	apr.setAddress("29, side layout, cohen");
-	apr.setLanguage("French-IN");
-	apr.setName("FrontLine House");
+	apr.setAddress(addr);
+	apr.setLanguage(lang);
+	apr.setName(name);
 	apr.setPhone_number("(+91) 983 893 3937");
 	apr.setWebsite("http://google.com");
 	List<String> myList= new ArrayList<String>();

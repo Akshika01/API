@@ -29,10 +29,16 @@ public class StepDefinitions extends Utils {
 	
 	
 	Response response;
-	@Given("AddPlace payload")
+	/*@Given("AddPlace payload")
 	public void addplace_payload() throws IOException {
 	    // Write code here that turns the phrase above into concrete actions		
 		reqSpec= given().spec(requestSpecification()).body(TestDataBuild.addPlacePayload());			
+	}*/
+	
+	@Given("AddPlace payload with {string} {string} {string}")
+	public void addplace_payload_with(String name, String language, String address) throws IOException {
+	    // Write code here that turns the phrase above into concrete actions
+		reqSpec= given().spec(requestSpecification()).body(TestDataBuild.addPlacePayload(name, language, address));	
 	}
 
 	@When("user calls {string} using post http request")
