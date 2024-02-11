@@ -3,6 +3,7 @@ package stepDefinitions;
 import static io.restassured.RestAssured.given;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class StepDefinitions extends Utils {
 	
 	Response response;
 	@Given("AddPlace payload")
-	public void addplace_payload() throws FileNotFoundException {
+	public void addplace_payload() throws IOException {
 	    // Write code here that turns the phrase above into concrete actions		
 		reqSpec= given().spec(requestSpecification()).body(TestDataBuild.addPlacePayload());			
 	}
