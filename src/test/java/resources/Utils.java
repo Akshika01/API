@@ -16,16 +16,19 @@ import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 
 public class Utils {
-	RequestSpecification req;
+	
+	public static RequestSpecification req;
 	ResponseSpecification respSpec;
 public RequestSpecification requestSpecification() throws IOException{
+	if(req==null){
 	PrintStream log=new PrintStream(new FileOutputStream("logging.txt"));
 	req=new RequestSpecBuilder().setBaseUri(getGlobalValue("baseUrl")).
 			addQueryParam("key", "qaclick123").
 			addFilter(RequestLoggingFilter.logRequestTo(log)).
 			addFilter(ResponseLoggingFilter.logResponseTo(log)).
 			setContentType(ContentType.JSON).build();
-	return req;	
+	return req;	}
+	return req;
 }
 
 public  ResponseSpecification responseSpecification(){
