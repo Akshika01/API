@@ -25,10 +25,11 @@ import resources.Utils;
 import static org.junit.Assert.*;
 
 public class StepDefinitions extends Utils {
-	RequestSpecification reqSpec;
-	
-	
+	RequestSpecification reqSpec;	
 	Response response;
+	String place_id;
+	
+	
 	/*@Given("AddPlace payload")
 	public void addplace_payload() throws IOException {
 	    // Write code here that turns the phrase above into concrete actions		
@@ -41,13 +42,30 @@ public class StepDefinitions extends Utils {
 		reqSpec= given().spec(requestSpecification()).body(TestDataBuild.addPlacePayload(name, language, address));	
 	}
 
-	@When("user calls {string} using post http request")
-	public void user_calls_using_post_http_request(String string) {
+	/*@When("user calls {string} using post http request")
+	public void user_calls_with_post_http_request(String string) {
 		response=reqSpec.when().post("/maps/api/place/add/json").
 				then().spec(responseSpecification()).extract().response();
 		String respString=response.asString();		
 		System.out.println(respString);
 		
+	}*/
+	
+	@When("user calls {string} with {string} http request")
+	public void user_calls_with_http_request(String ApiName, String ApiType) {
+		
+		if(ApiType.equalsIgnoreCase("POST")){
+			response=reqSpec.when().post("/maps/api/place/add/json").
+					then().spec(responseSpecification()).extract().response();
+		}
+		
+		else if(ApiType.equalsIgnoreCase("GET")){
+			response=reqSpec.when().get("/maps/api/place/get/json").
+					then().spec(responseSpecification()).extract().response();
+		}
+		
+		String respString=response.asString();		
+		System.out.println(respString);
 	}
 
 	@Then("the API call is success with status code {string}")
@@ -58,9 +76,20 @@ public class StepDefinitions extends Utils {
 
 	@Then("{string} in response body is {string}")
 	public void in_response_body_is(String key, String expectedValue) {
+	    // Write code here that turns the phrase above into concrete actions	    
+	    String actualValue=getJsonPath(response, key);
+	    assertEquals(actualValue,expectedValue);
+	}
+	
+	@Then("verify place_id created maps to {string} using {string}")
+	public void verify_place_id_created_maps_to_using(String expectedName, String ApiMethod) throws IOException {
 	    // Write code here that turns the phrase above into concrete actions
-	    String resp=response.asString();
-	    JsonPath js=new JsonPath(resp);
-	    assertEquals(js.getString(key),expectedValue);
+		place_id=getJsonPath(response,"place_id");
+	   reqSpec=given().spec(requestSpecification()).queryParam("place_id", place_id);
+	   user_calls_with_http_request("getPlaceAPI", "GET");
+	   String actualName=getJsonPath(response,"name");
+	   assertEquals(actualName,expectedName);
+		
+			   
 	}
 }
