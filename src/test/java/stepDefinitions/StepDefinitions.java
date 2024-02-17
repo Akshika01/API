@@ -27,7 +27,7 @@ import static org.junit.Assert.*;
 public class StepDefinitions extends Utils {
 	RequestSpecification reqSpec;	
 	Response response;
-	String place_id;
+	static String place_id;
 	
 	
 	/*@Given("AddPlace payload")
@@ -54,8 +54,13 @@ public class StepDefinitions extends Utils {
 	@When("user calls {string} with {string} http request")
 	public void user_calls_with_http_request(String ApiName, String ApiType) {
 		
-		if(ApiType.equalsIgnoreCase("POST")){
+		if(ApiType.equalsIgnoreCase("POST")&& ApiName.equalsIgnoreCase("AddPlaceApi")){
 			response=reqSpec.when().post("/maps/api/place/add/json").
+					then().spec(responseSpecification()).extract().response();
+		}
+		
+		else if(ApiType.equalsIgnoreCase("POST")&& ApiName.equalsIgnoreCase("deletePlaceApi")){
+			response=reqSpec.when().post("/maps/api/place/delete/json").
 					then().spec(responseSpecification()).extract().response();
 		}
 		
@@ -89,7 +94,16 @@ public class StepDefinitions extends Utils {
 	   user_calls_with_http_request("getPlaceAPI", "GET");
 	   String actualName=getJsonPath(response,"name");
 	   assertEquals(actualName,expectedName);
+	  
+	   
+			   	}
+	
+	@Given("Delete Place Payload")
+	public void delete_Place_Payload() throws IOException {
 		
-			   
+	    // Write code here that turns the phrase above into concrete actions
+	    reqSpec=given().spec(requestSpecification()).body(TestDataBuild.deletePlacePayload(place_id));
+	    
 	}
+	
 }

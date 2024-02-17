@@ -13,3 +13,9 @@ Examples:
  |name| language| address|
  |AAGarg|Punjabi|Ottawa|
 # |AAMittal| Hindi| Windsor|
+
+Scenario:  Verify if delete place functionality is working
+Given Delete Place Payload
+When user calls "deletePlaceApi" with "POST" http request
+Then the API call is success with status code "200"
+And "status" in response body is "OK"

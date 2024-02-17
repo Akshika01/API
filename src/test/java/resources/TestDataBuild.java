@@ -26,5 +26,12 @@ public static AddPlaceRequest addPlacePayload(String name, String lang, String a
 	
 	return apr;
 	
+	
+}
+
+public static String deletePlacePayload(String placeId){
+	return "{\r\n" + 
+			"\"place_id\":\""+placeId+"\"\r\n" + 
+			"}";
 }
 }
