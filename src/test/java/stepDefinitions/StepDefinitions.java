@@ -87,7 +87,7 @@ public class StepDefinitions extends Utils {
 	}
 	
 	@Then("verify place_id created maps to {string} using {string}")
-	public void verify_place_id_created_maps_to_using(String expectedName, String ApiMethod) throws IOException {
+	public void verify_place_id_created_maps_to_using(String expectedName, String ApiType) throws IOException {
 	    // Write code here that turns the phrase above into concrete actions
 		place_id=getJsonPath(response,"place_id");
 	   reqSpec=given().spec(requestSpecification()).queryParam("place_id", place_id);
