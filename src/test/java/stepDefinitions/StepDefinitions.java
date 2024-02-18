@@ -57,16 +57,19 @@ public class StepDefinitions extends Utils {
 		if(ApiType.equalsIgnoreCase("POST")&& ApiName.equalsIgnoreCase("AddPlaceApi")){
 			response=reqSpec.when().post("/maps/api/place/add/json").
 					then().spec(responseSpecification()).extract().response();
+			System.out.println("/maps/api/place/add/json");
 		}
 		
 		else if(ApiType.equalsIgnoreCase("POST")&& ApiName.equalsIgnoreCase("deletePlaceApi")){
 			response=reqSpec.when().post("/maps/api/place/delete/json").
 					then().spec(responseSpecification()).extract().response();
+			System.out.println("/maps/api/place/delete/json");
 		}
 		
 		else if(ApiType.equalsIgnoreCase("GET")){
 			response=reqSpec.when().get("/maps/api/place/get/json").
 					then().spec(responseSpecification()).extract().response();
+			System.out.println("/maps/api/place/get/json");
 		}
 		
 		String respString=response.asString();		

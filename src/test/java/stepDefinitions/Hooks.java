@@ -8,6 +8,7 @@ public class Hooks {
     
 	@Before("@DeletePlace")
 	public void beforeScenario() throws IOException{
+		// write code to get place_id from the existing methods in step definitions file if place_id is null
 		StepDefinitions sd= new StepDefinitions();
 		if(StepDefinitions.place_id==null){
 		sd.addplace_payload_with("Akshika", "French", "Guigues");
